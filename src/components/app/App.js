@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import "./App.scss";
 import Repo from "./Repo";
 import { ImpulseSpinner } from "react-spinners-kit";
 
 class App extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -41,7 +42,7 @@ class App extends Component {
             error: true
           });
         });
-    }, 5000);
+    }, 500);
   };
 
   onEnterPress(target) {
@@ -61,7 +62,7 @@ class App extends Component {
     return (
       <section>
         <div className="container">
-          <div className="row searchBar">
+          <div className="row search-bar">
             <input
               type="text"
               ref="username"
@@ -84,7 +85,7 @@ class App extends Component {
             <tbody>
               {!isSearch ? (
                 <tr>
-                  <td colSpan="3" className="searchInfo">
+                  <td colSpan="3" className="search-info">
                     Click "Search" to load data
                   </td>
                 </tr>
@@ -99,10 +100,9 @@ class App extends Component {
           </div>
           {this.state.limit < this.state.repos.length ||
           this.state.repos.length === 0 ? (
-            <div className="row loadMore">
+            <div className="row load-more">
               <button
                 type="button"
-                className="loadMoreBtn"
                 onClick={this.loadMore}
               >
                 Load more...

@@ -1,0 +1,62 @@
+$desktop: 1200px;
+
+.container {
+  .row {
+    margin: 0;
+  }
+  button {
+    background-color: white;
+    border: 0.5px solid gray;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  a {
+    color: rgb(27, 6, 238);
+    font-weight: 500;
+    text-decoration: underline;
+  }
+  .search-bar {
+    margin-top: 50px;
+    input {
+      width: 80%;
+      @media (min-width: $desktop) {
+        width: 92%; 
+      }
+    }
+    button {
+      width: 20%;
+      @media (min-width: $desktop) {
+        width: 8%; 
+      }
+    }
+  }
+  table {
+    margin-bottom: 30px !important;
+    margin-top: 30px !important;
+    th {
+      border-bottom-width: 1px;
+      text-align: center;
+    }
+    .search-info {
+      text-align: center;
+      color: gray;
+      background-color: white;
+    }
+  }
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+  }
+  .load-more {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      height: 30px;
+      width: 25%;
+      @media (min-width: $desktop) {
+        width: 10%;
+      }
+    }
+  }
+}
