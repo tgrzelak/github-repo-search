@@ -1,0 +1,65 @@
+.App {
+  text-align: center;
+}
+
+.row {
+  margin: 0;
+}
+
+.searchBar{
+  margin-top: 50px;
+}
+
+.searchBar input{
+  width: 92%;
+} 
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+}
+
+.searchBar button{
+  width: 8%;
+}
+
+th {
+  text-align: center;
+}
+
+.table-bordered thead th {
+  border-bottom-width: 1px;
+}
+
+table {
+  margin-bottom: 30px!important;
+  margin-top: 30px!important;
+}
+
+.loadMore {
+  display: flex;
+  justify-content: flex-end;
+}
+.searchInfo {
+  text-align: center;
+  color: gray;
+  background-color: white;
+}
+button {
+  background-color: white;
+  border: 0.5px solid gray; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loadMore button {
+  height: 30px;
+  width: 10%;
+}
+
+a{
+  color: rgb(27, 6, 238);
+  font-weight: 500;
+  text-decoration: underline;
+}

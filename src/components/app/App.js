@@ -1,0 +1,119 @@
+import React, { Component } from "react";
+import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import Repo from "./Repo";
+import { SyncLoader } from "react-spinners";
+
+class App extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = { 
+      repos: [],
+      limit: 10,
+      loading: false,
+      isSearch: false,
+      error: false
+    };
+    this.loadMore = this.loadMore.bind(this); 
+  }
+
+  getUserRepositories = () => {
+    const username = this.refs.username.value;
+    const apiUrl = "http://api.github.com";
+
+    this.setState({
+      loading: true
+    });
+
+    setTimeout(() => {
+      fetch(`${apiUrl}/users/${username}/repos`)
+        .then(resp => resp.json())
+        .then(resp => {
+          this.setState({
+            repos: resp,
+            loading: false,
+            isSearch: true
+          });
+        })
+        .catch(error => {
+          console.error(error);
+          this.setState({
+            error: true
+          });
+        });
+    }, 500);
+  };
+
+  onEnterPress(target) {
+    if (target.charCode === 13) {
+      this.getUserRepositories();
+    }
+  }
+
+  loadMore() {
+    this.setState(prev => {
+      return { limit: prev.limit + 10 };
+    });
+  }
+
+  render() {
+    const isSearch = this.state.isSearch;
+    return (
+      <section>
+        <div className="container">
+          <div className="row searchBar">
+            <input
+              type="text"
+              ref="username"
+              placeholder="Enter a username"
+              onKeyPress={this.onEnterPress.bind(this)}
+            />
+            <button type="button" onClick={this.getUserRepositories}>
+              Search
+            </button>
+          </div>
+
+          <table className="table table-striped table-bordered table-sm">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Stars</th>
+                <th>Forks</th>
+              </tr>
+            </thead>
+            <tbody>
+              {!isSearch ? (
+                <tr>
+                  <td colSpan="3" className="searchInfo">
+                    Click "Search" to load data
+                  </td>
+                </tr>
+              ) : null}
+              {this.state.repos.slice(0, this.state.limit).map((item, key) => (
+                <Repo item={item} key={key} />
+              ))}
+            </tbody>
+          </table>
+          <div className="loading-spinner">
+            <SyncLoader color={"#808080"} loading={this.state.loading} />
+          </div>
+          {this.state.limit < this.state.repos.length ||
+          this.state.repos.length === 0 ? (
+            <div className="row loadMore">
+              <button
+                type="button"
+                className="loadMoreBtn"
+                onClick={this.loadMore}
+              >
+                Load more...
+              </button>
+            </div>
+          ) : null}
+        </div>
+      </section>
+    );
+  }
+}
+
+export default App;
