@@ -2,25 +2,24 @@ import React, { Component } from "react";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Repo from "./Repo";
-import { SyncLoader } from "react-spinners";
+import { ImpulseSpinner } from "react-spinners-kit";
 
 class App extends Component {
-  
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       repos: [],
       limit: 10,
       loading: false,
       isSearch: false,
       error: false
     };
-    this.loadMore = this.loadMore.bind(this); 
+    this.loadMore = this.loadMore.bind(this);
   }
 
   getUserRepositories = () => {
     const username = this.refs.username.value;
-    const apiUrl = "http://api.github.com";
+    const apiUrl = "https://api.github.com";
 
     this.setState({
       loading: true
@@ -42,7 +41,7 @@ class App extends Component {
             error: true
           });
         });
-    }, 500);
+    }, 5000);
   };
 
   onEnterPress(target) {
@@ -96,7 +95,7 @@ class App extends Component {
             </tbody>
           </table>
           <div className="loading-spinner">
-            <SyncLoader color={"#808080"} loading={this.state.loading} />
+            <ImpulseSpinner loading={this.state.loading} />
           </div>
           {this.state.limit < this.state.repos.length ||
           this.state.repos.length === 0 ? (
