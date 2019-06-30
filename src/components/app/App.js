@@ -35,8 +35,9 @@ class App extends Component {
     const apiUrl = "https://api.github.com";
 
     this.setState({
+      repos: [],
       loading: true,
-      repos: []
+      limit: 10
     });
 
     setTimeout(() => {
