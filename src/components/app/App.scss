@@ -15,7 +15,10 @@ $desktop: 1200px;
     color: rgb(27, 6, 238);
     font-weight: 500;
     text-decoration: underline;
-  }
+    &:hover {
+      color: darkblue;
+    }
+  } 
   .search-bar {
     margin-top: 50px;
     input {
@@ -30,6 +33,10 @@ $desktop: 1200px;
         width: 8%; 
       }
     }
+  }
+  .error-message {
+    color: red;
+    position: absolute;
   }
   table {
     margin-bottom: 30px !important;
@@ -54,6 +61,7 @@ $desktop: 1200px;
     button {
       height: 30px;
       width: 25%;
+      margin-bottom: 50px;
       @media (min-width: $desktop) {
         width: 10%;
       }

@@ -5,7 +5,7 @@ import Repo from "./Repo";
 import { ImpulseSpinner } from "react-spinners-kit";
 
 class App extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -13,9 +13,21 @@ class App extends Component {
       limit: 10,
       loading: false,
       isSearch: false,
-      error: false
+      error: false,
+      isUserExist: true
     };
     this.loadMore = this.loadMore.bind(this);
+  }
+
+  handleResponse(response) {
+    if (response.status === 404) {
+      this.setState({
+        isUserExist: false,
+        loading: false
+      })
+      throw new Error(response.status);
+    }
+    return response.json();
   }
 
   getUserRepositories = () => {
@@ -23,21 +35,22 @@ class App extends Component {
     const apiUrl = "https://api.github.com";
 
     this.setState({
-      loading: true
+      loading: true,
+      repos: []
     });
 
     setTimeout(() => {
       fetch(`${apiUrl}/users/${username}/repos`)
-        .then(resp => resp.json())
+        .then(resp => this.handleResponse(resp))
         .then(resp => {
           this.setState({
             repos: resp,
             loading: false,
-            isSearch: true
+            isSearch: true,
+            isUserExist: true
           });
         })
         .catch(error => {
-          console.error(error);
           this.setState({
             error: true
           });
@@ -59,6 +72,7 @@ class App extends Component {
 
   render() {
     const isSearch = this.state.isSearch;
+    const isUserExist = this.state.isUserExist;
     return (
       <section>
         <div className="container">
@@ -73,7 +87,7 @@ class App extends Component {
               Search
             </button>
           </div>
-
+          {!isUserExist ? <div className="error-message">User not found</div> : null}
           <table className="table table-striped table-bordered table-sm">
             <thead>
               <tr>
